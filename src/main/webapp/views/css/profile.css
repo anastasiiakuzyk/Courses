@@ -5,6 +5,11 @@ body {
 html {
 }
 
+.container-fluid {
+    min-height: 100vh;
+    overflow-y: scroll;
+}
+
 main {
     display: flex;
     flex-wrap: nowrap;

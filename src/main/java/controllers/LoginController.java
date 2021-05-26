@@ -23,14 +23,13 @@ public class LoginController extends HttpServlet {
 
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
-            if(cookie.getName().equals("token")){
-                response.sendRedirect("views/profile.jsp");
+            if (cookie.getName().equals("token")) {
+                response.sendRedirect("profile");
                 return;
             }
         }
         response.setContentType("text/html; charset=UTF-8");
-        request.getRequestDispatcher("views/index.jsp").include(request, response);
-
+        request.getRequestDispatcher("views/index.jsp").forward(request, response);
     }
 
     @Override
@@ -47,16 +46,19 @@ public class LoginController extends HttpServlet {
             response.setContentType("text/html; charset=UTF-8");
             request.getRequestDispatcher("views/index.jsp").include(request, response);
         }
-        if(BCrypt.checkpw(password, user.getPassword())){
+        if (BCrypt.checkpw(password, user.getPassword())) {
             TokenService tokenService = new TokenService();
             String token = tokenService.generateNewToken();
             try {
                 tokenService.setToken(user.getId(), token);
-            } catch (SQLException | ClassNotFoundException throwables) {
+            } catch (SQLException throwables) {
                 throwables.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
+
             response.addCookie(new Cookie("token", token));
-            response.sendRedirect("views/profile.jsp");
+            response.sendRedirect("profile");
         } else {
             response.setContentType("text/html; charset=UTF-8");
             request.getRequestDispatcher("views/index.jsp").include(request, response);

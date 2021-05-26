@@ -2,31 +2,34 @@ package models;
 
 public class User {
     private int id;
-    private String name;
-    private String email;
-    private String password;
-    private int role_id;
+    private String name = "";
+    private String email = "";
+    private String password = "";
+    private int roleId;
 
-    public User(String name, String email, String password, int role_id) {
+    public User(String name, String email, String password, int roleId) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role_id = role_id;
+        this.roleId = roleId;
     }
 
     public User(String name) {
         this.name = name;
     }
 
-    public User(int id, String name, String email, String password, int role_id) {
+    public User(int id, String name, String email, String password, int roleId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role_id = role_id;
+        this.roleId = roleId;
     }
 
     public User() {
+    }
+
+    public User(int id, String name, int course, int anInt) {
     }
 
     public int getId() {
@@ -46,7 +49,7 @@ public class User {
     }
 
     public String getRole() {
-        switch (role_id) {
+        switch (roleId) {
             case 1:
                 return "Адміністратор";
             case 2:
@@ -57,6 +60,7 @@ public class User {
         return null;
     }
 
-
-
+    public int getRoleId() {
+        return roleId;
+    }
 }

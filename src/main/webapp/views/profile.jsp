@@ -20,7 +20,7 @@
     <div class="container-fluid platform__container__wrapper">
         <div class="platform__container">
             <div class="card profile__card">
-                <svg width="32" height="32" class="rounded-circle me-2" version="1.1" id="Capa_1"
+                <svg width="50" height="50" class="rounded-circle me-2" version="1.1" id="Capa_1"
                      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                      viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
 <path style="fill:#303C42;"
@@ -78,6 +78,16 @@
 
             </div>
             <h1 style="margin-top: 40px;">Мої курси:</h1>
+            <form>
+                <select name="progress" class="form-select">
+                    <option selected>Всі курси</option>
+                    <option value="notStart" ${progress=="notStart"?"selected":""}>Не почалися</option>
+                    <option value="inProgress" ${progress=="inProgress"?"selected":""}>Доступні</option>
+                    <option value="ended" ${progress=="ended"?"selected":""}>Завершені</option>
+
+                </select>
+                <input type="submit" value="Обрати" class="w-100 btn btn-primary">
+            </form>
             <div class="cources">
                 <c:forEach items="${courses}" var="course">
                     <div class="card">
@@ -93,13 +103,23 @@
                             </p>
                             <div class="cource__data">
                                 <div class="card-text"><b>Викладач:</b></div>
-                                <div>Кузик А.В.</div>
+                                <div>
+                                    <c:choose>
+                                        <c:when test="${user.roleId==3}">
+                                            ${course.getTeacher().getName()}
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${user.name}
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                </div>
                                 <div class="card-text"><b>Початок:</b></div>
-                                <div>10.06.2021</div>
+                                <div>${course.getStart()}</div>
                                 <div class="card-text"><b>Кінець:</b></div>
-                                <div>30.07.2021</div>
+                                <div>${course.getEnd()}</div>
                             </div>
-                            <a href="#" class="card-link">Доєднатися</a>
+                            <a href="course?id=${course.getId()}" class="card-link">переглянути</a>
                         </div>
                     </div>
                 </c:forEach>

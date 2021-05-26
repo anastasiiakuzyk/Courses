@@ -23,8 +23,48 @@
     <div class="container-fluid platform__container__wrapper">
         <div class="platform__container">
             <h1>Доступні курси:</h1>
-            <a href="${pageContext.request.contextPath}/views/add-course.jsp" class="btn btn-primary" tabindex="-1"
+            <a href="addCourse?edit=0" class="btn btn-primary" tabindex="-1"
                role="button">Додати курс</a>
+            <form>
+                <select name="sort" class="form-select">
+                    <option selected>Сортування</option>
+                    <option value="nameAsc" ${sort=="nameAsc"?"selected":""}>
+                        Відсортувати по імнені (за зростанням)
+                    </option>
+                    <option value="nameDesc" ${sort=="nameDesc"?"selected":""}>
+                        Відсортувати по імнені (за спаданням)
+                    </option>
+                    <option value="durationAsc" ${sort=="durationAsc"?"selected":""}>
+                        Відсортувати за тривалістю (за
+                        зростанням)
+                    </option>
+                    <option value="durationDesc" ${sort=="durationDesc"?"selected":""}>
+                        Відсортувати за тривалістю (за
+                        спаданням)
+                    </option>
+                    <option value="studNumbAsc" ${sort=="studNumbAsc"?"selected":""}>
+                        Відсортувати за кількістю студентів
+                        (за зростанням)
+                    </option>
+                    <option value="studNumbDesc" ${sort=="studNumbDesc"?"selected":""}>
+                        Відсортувати за кількістю
+                        студентів (за спаданням)
+                    </option>
+                </select>
+                <select name="theme" class="form-select" required>
+                    <option value="default" selected>Тема не вибрана</option>
+                    <c:forEach items="${themes}" var="them">
+                        <option ${selectedTheme==them?"selected":"" } >${them}</option>
+                    </c:forEach>
+                </select>
+                <select name="teacher" class="form-select" required>
+                    <option value="default" selected>Вкладач не вибраний</option>
+                    <c:forEach items="${teachers}" var="teache">
+                        <option ${selectedTeacher==teache.getId().toString()?"selected":""} value="${teache.getId().toString()}">${teache.getName()}</option>
+                    </c:forEach>
+                </select>
+                <input type="submit" value="Сортувати" class="w-100 btn btn-primary">
+            </form>
             <div class="cources">
                 <c:forEach items="${courses}" var="course">
                     <div class="card">
@@ -41,7 +81,7 @@
                             <div class="cource__data">
                                 <div class="card-text"><b>Викладач:</b></div>
                                 <div>
-                                    <c:out value="${course.getTeacher().getName()}"/>
+                                    <c:out value="${course.getTeacherName()}"/>
                                 </div>
                                 <div class="card-text"><b>Початок:</b></div>
                                 <div>
@@ -52,8 +92,7 @@
                                     <c:out value="${course.getEnd()}"/>
                                 </div>
                             </div>
-                            <a href="#" class="card-link">Доєднатися</a>
-                            <a href="#" class="card-link">Переглянути</a>
+                            <a href="course/join?id=${course.getId()}" class="card-link">Приєднатися</a>
                         </div>
                     </div>
                 </c:forEach>

@@ -20,12 +20,14 @@ public class UserService {
             "where user_id = users.id and token = ?)";
     private static final String INSERT = "insert into users (name,email,password,role_id) values(?,?,?,?)";
 
+
     public List<User> getAllUsers() throws SQLException, ClassNotFoundException {
         List<User> users = new ArrayList<>();
         Connection connection = MySQLConnection.getConnection();
         ResultSet resultSet = connection.prepareStatement(SELECT_ALL).executeQuery();
         while (resultSet.next()) {
             users.add(new User(
+                    resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
@@ -41,6 +43,7 @@ public class UserService {
         ResultSet resultSet = connection.prepareStatement(SELECT_ALL_STUDENTS).executeQuery();
         while (resultSet.next()) {
             users.add(new User(
+                    resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
@@ -56,6 +59,7 @@ public class UserService {
         ResultSet resultSet = connection.prepareStatement(SELECT_ALL_TEACHERS).executeQuery();
         while (resultSet.next()) {
             users.add(new User(
+                    resultSet.getInt(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
                     resultSet.getString(4),
@@ -119,4 +123,14 @@ public class UserService {
 
     }
 
+    public void setTeacher(String email, String name, String password)  throws SQLException, ClassNotFoundException {
+        Connection connection = MySQLConnection.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(INSERT);
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, email);
+        preparedStatement.setString(3, password);
+        preparedStatement.setInt(4, 2);
+        preparedStatement.executeUpdate();
+        connection.close();
+    }
 }

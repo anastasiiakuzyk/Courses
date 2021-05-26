@@ -13,7 +13,7 @@
 </head>
 <body>
 <main class="form-signin">
-    <form action="${pageContext.request.contextPath}/register" method="get">
+    <form action="${pageContext.request.contextPath}/register" method="post">
         <svg width="40" height="32" viewBox="0 0 240 228" version="1.1" xmlns="http://www.w3.org/2000/svg"
              xmlns:xlink="http://www.w3.org/1999/xlink">
             <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
@@ -51,7 +51,7 @@
             <label for="floatingPassword">Пароль</label>
         </div>
         <div class="form-floating new__user">
-            Вже маєте обліковий запис? <a href="${pageContext.request.contextPath}/views/index.jsp">Увійти</a>
+            Вже маєте обліковий запис? <a href="${pageContext.request.contextPath}/login">Увійти</a>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">Уперед!</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2021</p>

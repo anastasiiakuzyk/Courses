@@ -19,11 +19,11 @@
     <div class="container-fluid platform__container__wrapper">
         <div class="platform__container">
             <h1>Викладачі:</h1>
-            <a href="${pageContext.request.contextPath}/views/add-teacher.jsp" class="btn btn-primary" tabindex="-1"
+            <a href="addTeacher" class="btn btn-primary" tabindex="-1"
                role="button">Додати викладача</a>
             <div class="teachers">
-                <div class="card profile__card">
-                    <c:forEach items="${teachers}" var="teacher">
+                <c:forEach items="${teachers}" var="teacher">
+                    <div class="card profile__card">
                         <svg width="50" height="50" class="rounded-circle me-2" version="1.1" id="Capa_1"
                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
                              y="0px"
@@ -77,14 +77,13 @@
                                 Курси:
                             </div>
                             <h6>
-                                <a href="#">Java</a>,
-                                <a href="#">Java EE</a>,
-                                <a href="#">Docker</a>,
-                                <a href="#">Ballet</a>
+                                <c:forEach items="${coursesByTeachers.get(teacher.getId())}" var="course">
+                                    <a href="course?id=${course.getId()}">${course.getName()}</a>
+                                </c:forEach>
                             </h6>
                         </div>
-                    </c:forEach>
-                </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
 

@@ -49,7 +49,7 @@
             </div>
 
             <div class="form-floating new__user">
-                Ще немає облікового запису? <a href="${pageContext.request.contextPath}/views/register.jsp">Зареєструйтесь</a>
+                Ще немає облікового запису? <a href="${pageContext.request.contextPath}/register">Зареєструйтесь</a>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Уперед!</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2021</p>

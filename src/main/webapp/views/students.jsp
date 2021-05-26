@@ -21,7 +21,6 @@
             <h1>Учні:</h1>
             <div class="teachers">
                 <c:forEach items="${students}" var="student">
-
                     <div class="card profile__card">
                         <svg width="50" height="50" class="rounded-circle me-2" version="1.1" id="Capa_1"
                              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
@@ -30,13 +29,11 @@
 <path style="fill:#303C42;"
       d="M256,0C114.844,0,0,114.844,0,256s114.844,256,256,256s256-114.844,256-256S397.156,0,256,0z"/>
                             <path style="fill:#E6E6E6;" d="M256,21.333c129.396,0,234.667,105.271,234.667,234.667c0,51.508-16.878,99.038-45.121,137.781
-	c-2.467-1.605-4.905-3.069-7.379-4.344C395.417,367.49,50
-9.104,341.333,256,341.333S116.583,367.49,73.823,389.448
+	c-2.467-1.605-4.905-3.069-7.379-4.344C395.417,367.49,329.104,341.333,256,341.333S116.583,367.49,73.823,389.448
 	c-2.467,1.27-4.902,2.73-7.368,4.333C38.212,355.036,21.333,307.508,21.333,256C21.333,126.604,126.604,21.333,256,21.333z"/>
                             <path style="fill:#1E88E5;" d="M256,490.667c-70.161,0-133.056-31.108-176.095-80.073c1.227-0.743,2.464-1.551,3.678-2.177
 	c40.656-20.875,103.573-45.75,172.417-45.75s131.76,24.875,172.406,45.74c1.22,0.63,2.46,1.439,3.69,2.186
-	C389.056,459.557,50
-6.161,490.667,256,490.667z"/>
+	C389.056,459.557,326.161,490.667,256,490.667z"/>
                             <circle style="fill:#303C42;" cx="256" cy="192" r="128"/>
                             <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-33.5392" y1="631.086"
                                             x2="-28.0542" y2="625.6"
@@ -78,12 +75,14 @@
                                 Проходить курси:
                             </div>
                             <h6>
-                                <a href="#">Java</a>,
-                                <a href="#">Java EE</a>,
-                                <a href="#">Docker</a>,
-                                <a href="#">Ballet</a>
+                                <c:forEach items="${coursesOfStudents.get(student.getId())}" var="course">
+                                    <a href="course?id=${course.getId()}">${course.getName()}</a>
+                                </c:forEach>
                             </h6>
-                            <a href="#">Заблокувати</a>
+                            <form action="students" method="post">
+                                <input name="studentId" type="hidden" value="${student.getId()}">
+                                <input type="submit" value="Заблокувати">
+                            </form>
                         </div>
                     </div>
                 </c:forEach>
